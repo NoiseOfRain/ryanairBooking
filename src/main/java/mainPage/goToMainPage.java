@@ -59,7 +59,7 @@ public class goToMainPage extends mainPageObjects {
 
         /**строки календаря*/
         inputFlyOut("DD").click();
-        inputFlyOut("DD").sendKeys("02");
+        inputFlyOut("DD").sendKeys("05");
         Thread.sleep(500);
         inputFlyOut("MM").clear();
         inputFlyOut("MM").sendKeys("09");
@@ -83,7 +83,7 @@ public class goToMainPage extends mainPageObjects {
         Thread.sleep(1000);
 
         inputFlyBack("DD").click();
-        inputFlyBack("DD").sendKeys("03");
+        inputFlyBack("DD").sendKeys("06");
         Thread.sleep(500);
         inputFlyBack("MM").clear();
         inputFlyBack("MM").sendKeys("10");

@@ -62,7 +62,7 @@ public class homePage extends makeSettingsBrowser {
 
     By wayToDeparture(String way) {
         return By.xpath("//flight-list[@id='" + way + "']" +
-                "//div[@class='ranimate-flights-table flights-table__flight");
+                "//div[@class='ranimate-flights-table flights-table__flight']");
     }
 
     WebElement maxPriceB(String way) {
@@ -71,11 +71,17 @@ public class homePage extends makeSettingsBrowser {
         double maxPrice = 0;
         int number = 0;
 
-        for (int i = 1 ; i < numberFlights + 1 ; i ++) {
-            double value = Double.parseDouble(driver.findElement(By.xpath("//flight-list[@id='" + way + "']" +
-                    "//div[contains(@class, 'ranimate-flights-table flights-table__flight')][" + numberFlights + "]" +
-                    "//div[@class='flight-header__min-price hide-mobile']" +
-                    "//span[contains(@class, 'flights-table-price__price')]")).getText().substring(2));
+
+        for (int i = 1 ; i < numberFlights ; i ++) {
+            String text = driver.findElements(wayToDeparture(way)).get(i).getText();
+
+            int Euro=0;
+
+            for (int j = 0 ; j < text.length() ; j++) {
+                if (text.charAt(j) == '€') Euro = j;
+            }
+
+            double value = Double.parseDouble(driver.findElements(wayToDeparture(way)).get(i).getText().substring(Euro+1));
 
             if (maxPrice < value) {
                 maxPrice = value;
@@ -83,14 +89,15 @@ public class homePage extends makeSettingsBrowser {
             }
         }
 
-        return driver.findElement(By.xpath("//flight-list[@id='" + way + "']" +
-                "//div[contains(@class, 'ranimate-flights-table flights-table__flight')][" + number + "]" +
-                "//div[@class='flight-header__min-price hide-mobile']" +
-                "//span[contains(@class, 'flights-table-price__price')]"));
+        return driver.findElements(wayToDeparture(way)).get(number);
     }
 
-    @Test
+    @Test(priority = 99)
     public void test() throws Exception {
+
+        new waitFor(continueB(), 1);
+
+        System.out.println(maxPriceB("outbound").getText());
 
         maxPriceB("outbound").click();
 
