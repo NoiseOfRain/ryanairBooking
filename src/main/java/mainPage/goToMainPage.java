@@ -11,8 +11,7 @@ import settings.waitFor;
 public class goToMainPage extends mainPageObjects {
 
     @Test
-    public void goToMainPage() throws Exception {
-
+    public void MainPageCheckElements() throws Exception {
         driver.get("https://www.ryanair.com/ie/en/");
 
         addScreenShot.screen("FirstScreen");
@@ -27,16 +26,18 @@ public class goToMainPage extends mainPageObjects {
 
         assert driver.getTitle().equals("Official Ryanair website | Cheap flights from Ireland | Ryanair");
 
-
         Assert.assertTrue(twoWaysTicketsCheck().isEnabled());
-        Assert.assertTrue (oneWayTicketCheck().isEnabled());
+        Assert.assertTrue(oneWayTicketCheck().isEnabled());
 
         /**поля ввода аэропорта*/
-        Assert.assertTrue (inputLineFrom().isDisplayed());
-        Assert.assertTrue (inputLineTo().isDisplayed());
+        Assert.assertTrue(inputLineFrom().isDisplayed());
+        Assert.assertTrue(inputLineTo().isDisplayed());
 
         inputLineTo().sendKeys("London Gatwick");
+    }
 
+    @Test(priority = 1)
+    public void chooseAirport() throws Exception {
         /**попап аэропортов*/
         popupAirports().isEnabled();
 
@@ -45,14 +46,16 @@ public class goToMainPage extends mainPageObjects {
 
         /**кнопка Летс Го*/
         new waitFor(letsGoB());
+    }
 
+    @Test(priority = 2)
+    public void selectDate() throws Exception {
         /**проверка на закрытие обратного полета*/
         oneWayTicketCheck().click();
 
         Assert.assertTrue(!inputFlyBack("DD").isDisplayed());
         Thread.sleep(500);
         twoWaysTicketsCheck().click();
-
 
         /**строки календаря*/
         inputFlyOut("DD").click();
@@ -89,7 +92,10 @@ public class goToMainPage extends mainPageObjects {
 
         new waitFor(popupCalendar());
         Assert.assertTrue(popupEndDate().isDisplayed());
+    }
 
+    @Test(priority = 3)
+    public void addPassengers() throws Exception {
         /**добавляем пассажиров*/
         passangersB().click();
 
@@ -99,7 +105,6 @@ public class goToMainPage extends mainPageObjects {
         Assert.assertTrue(popubPassengers().isDisplayed());
 
         /**кнопки добавления пассажиров*/
-
         passengerPlusB("adults").click();
         passengerPlusB("teens").click();
         passengerPlusB("children").click();
@@ -114,12 +119,9 @@ public class goToMainPage extends mainPageObjects {
         new waitFor(popupInfant());
         buttonOkInfant().click();
 
-
-
         Thread.sleep(1000);
 
         /**кнопки удаления пассажиров*/
-
         passengerPlusM("adults").click();
         passengerPlusM("teens").click();
         passengerPlusM("children").click();
@@ -130,6 +132,7 @@ public class goToMainPage extends mainPageObjects {
         Assert.assertEquals(inputPassengersNumber("children").getAttribute("value"), "0");
         Assert.assertEquals(inputPassengersNumber("infants").getAttribute("value"), "0");
 
+        /**ваставить необходимое число людей*/
         inputPassengersNumber("adults").click();
         inputPassengersNumber("adults").sendKeys("3");
         inputPassengersNumber("teens").click();
@@ -137,7 +140,7 @@ public class goToMainPage extends mainPageObjects {
         Thread.sleep(500);
         passangersB().click();
 
-        /**проверить что ссылка на правила видна и достапна*/
+        /**проверить что ссылка на правила видна и доступна*/
         Assert.assertTrue(agreeLink().isDisplayed() && agreeLink().isDisplayed());
         letsGoB().click();
     }
