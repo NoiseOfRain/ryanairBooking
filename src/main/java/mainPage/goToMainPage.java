@@ -20,6 +20,12 @@ public class goToMainPage extends makeSettingsBrowser {
 
         new waitFor(continueB());
 
+        /**проверка наличия кнопок меню*/
+        Assert.assertTrue(signupMenuB().isDisplayed());
+        Assert.assertTrue(loginMenuB().isDisplayed());
+        Assert.assertTrue(helpMenuB().isDisplayed());
+        Assert.assertTrue(lenguageMenuB().isDisplayed());
+
         assert driver.getTitle().equals("Official Ryanair website | Cheap flights from Ireland | Ryanair");
 
 
@@ -33,7 +39,7 @@ public class goToMainPage extends makeSettingsBrowser {
         inputLineTo().sendKeys("Katowice");
 
         /**попап аэропортов*/
-        popupContent().isEnabled();
+        popupAirports().isEnabled();
 
         Thread.sleep(1500);
         airportName().click();
@@ -50,7 +56,7 @@ public class goToMainPage extends makeSettingsBrowser {
 
 
         /**строки календаря*/
-        inputFlyOut("DD").clear();
+        inputFlyOut("DD").click();
         inputFlyOut("DD").sendKeys("02");
         Thread.sleep(500);
         inputFlyOut("MM").clear();
@@ -64,22 +70,17 @@ public class goToMainPage extends makeSettingsBrowser {
         Assert.assertTrue(popupStartDate().isDisplayed());
 
         /**проверка стрелок*/
-        System.out.println("strelka left " + leftArrow().isEnabled());
-        System.out.println("strelka right " + leftArrow().isEnabled());
+        Assert.assertTrue(leftArrow().isEnabled());
+        Assert.assertTrue(leftArrow().isEnabled());
 
         rightArrow().click();
         Thread.sleep(1000);
+        Assert.assertTrue(monthNovember().isDisplayed());
+
         leftArrow().click();
         Thread.sleep(1000);
 
-        /**просмотр нерабочих дней*/
-        WebElement unavailableDate = driver.findElement(By.className("unavailable"));
-
-        //<li class="unavailable" ng-if="!range" data-id="03-09-2017"
-        //<li ng-if="!range" data-id="04-09-2017"
-
-
-        inputFlyBack("DD").clear();
+        inputFlyBack("DD").click();
         inputFlyBack("DD").sendKeys("03");
         Thread.sleep(500);
         inputFlyBack("MM").clear();
@@ -130,26 +131,16 @@ public class goToMainPage extends makeSettingsBrowser {
         Assert.assertEquals(inputPassengersNumber("children").getAttribute("value"), "0");
         Assert.assertEquals(inputPassengersNumber("infants").getAttribute("value"), "0");
 
-
-
-        /**
-         * <div class="info-box" ng-class="{'shown': paxInput.showMaxPassengersAlert}" role="alert">The maximum number of passengers is 25. If there are more than 25 passengers please use our group booking form.</div>
-         <div class="info-box" ng-class="{'shown': paxInput.showMaxTeensAndChildrenAlert}" role="alert">The maximum number of teens & children is 24.</div>
-         <div class="info-box" ng-class="{'shown': paxInput.showMaxInfantsAlert}" role="alert">The maximum number of infants is 18.</div>
-         <div class="info-box" ng-class="{'shown': paxInput.showInfantsAlert}" role="alert">You can't travel with more infants than adults</div>
-         */
-
-//
-
+        inputPassengersNumber("adults").click();
+        inputPassengersNumber("adults").sendKeys("3");
+        inputPassengersNumber("teens").click();
+        inputPassengersNumber("teens").sendKeys("1");
+        passangersB().click();
 
         /**проверить что ссылка на правила видна и достапна*/
         Assert.assertTrue(agreeLink().isDisplayed() && agreeLink().isDisplayed());
         letsGoB().click();
 
-
-
-
-         System.out.println("");
 
 
 
@@ -162,13 +153,6 @@ public class goToMainPage extends makeSettingsBrowser {
         WebElement validDateFormatMist = driver.findElement(By.xpath("//span[@translate='foh.home.flight_search_errors.valid_date_format_required']"));
 
 
-        //максимум 25 пассажиров
-        /**
-        <div class="info-box" ng-class="{'shown': paxInput.showMaxPassengersAlert}" role="alert">The maximum number of passengers is 25. If there are more than 25 passengers please use our group booking form.</div>
-        <div class="info-box" ng-class="{'shown': paxInput.showMaxTeensAndChildrenAlert}" role="alert">The maximum number of teens & children is 24.</div>
-        <div class="info-box" ng-class="{'shown': paxInput.showMaxInfantsAlert}" role="alert">The maximum number of infants is 18.</div>
-        <div class="info-box" ng-class="{'shown': paxInput.showInfantsAlert}" role="alert">You can't travel with more infants than adults</div>
-        */
 
         /**шапка выбора языка
         driver.findElement(By.xpath("//a[@ui-sref='header.markets']"));
@@ -179,6 +163,9 @@ public class goToMainPage extends makeSettingsBrowser {
 
         /**регистрация
         driver.findElement(By.id("myryanair-auth-signup")) - кнопка меню
+        driver.findElement(By.id("myryanair-auth-login")) - кнопка меню
+        driver.findElement(By.id("myryanair-auth-right")) - кнопка меню
+        driver.findElement(By.id("markets")) - кнопка меню
         driver.findElement(By.className("modal-form-container")) - контейнер регистрации
         driver.findElements(By.xpath("//translate[@translate='myryanair.authorization.dialog.continue.as.guest']")); - кнопра продолжить как гость
 
@@ -192,6 +179,20 @@ public class goToMainPage extends makeSettingsBrowser {
         */
 
     }
+
+    WebElement signupMenuB() {
+        return driver.findElement(By.id("myryanair-auth-signup"));
+    }
+    WebElement loginMenuB() {
+        return driver.findElement(By.id("myryanair-auth-login"));
+    }
+    WebElement helpMenuB() {
+        return driver.findElement(By.id("menu-links-right"));
+    }
+    WebElement lenguageMenuB() {
+        return driver.findElement(By.id("markets"));
+    }
+
 
     WebElement twoWaysTicketsCheck() {
         return driver.findElement(By.id("flight-search-type-option-return"));
@@ -207,7 +208,6 @@ public class goToMainPage extends makeSettingsBrowser {
     WebElement inputFlyOut(String parameter) {
         return driver.findElement(By.xpath("//input[@aria-label='Fly out: - " + parameter + "']"));
     }
-
     WebElement inputFlyBack(String parameter) {
         return driver.findElement(By.xpath("//input[@aria-label='Fly back: - " + parameter + "']"));
     }
@@ -219,7 +219,6 @@ public class goToMainPage extends makeSettingsBrowser {
     WebElement leftArrow() {
         return driver.findElement(By.xpath("//button[@class='arrow left']"));
     }
-
     WebElement rightArrow() {
         return driver.findElement(By.xpath("//button[@class='arrow right']"));
     }
@@ -232,18 +231,19 @@ public class goToMainPage extends makeSettingsBrowser {
         return driver.findElement(By.xpath("//div[@aria-label='Select number of passengers']"));
     }
 
+    WebElement popupCalendar() {
+        return driver.findElement(By.xpath("//div[@ng-transclude='contentSlot']"));
+    }
+    WebElement popupStartDate() {
+        return driver.findElement(By.className("start-date"));
+    }
     WebElement popupEndDate() {
         return driver.findElement(By.className("end-date"));
-    }
-
-    WebElement popubPassengers() {
-        return driver.findElement(By.xpath("//popup-content[@role='listbox']"));
     }
 
     WebElement inputLineFrom() {
         return driver.findElement(By.xpath("//input[@placeholder='Departure airport']"));
     }
-
     WebElement inputLineTo() {
         return driver.findElement(By.xpath("//input[@placeholder='Destination airport']"));
     }
@@ -256,14 +256,16 @@ public class goToMainPage extends makeSettingsBrowser {
         return driver.findElement(By.xpath("//span[@translate='foh.home.flight_search_infant_popup.ok']"));
     }
 
-    WebElement popupContent() {
+    WebElement popupAirports() {
         return driver.findElement(By.xpath("//popup-content[contains(@class, 'core-popup-content-searchbox')]"));
     }
 
+    WebElement popubPassengers() {
+        return driver.findElement(By.xpath("//popup-content[@role='listbox']"));
+    }
     WebElement passengerPlusB(String passenger) {
         return driver.findElement(By.xpath("//div[@value='paxInput." + passenger + "']//core-icon[@icon-id='glyphs.plus-circle']"));
     }
-
     WebElement passengerPlusM(String passenger) {
         return driver.findElement(By.xpath("//div[@value='paxInput." + passenger + "']//core-icon[@icon-id='glyphs.minus-circle']"));
     }
@@ -272,18 +274,13 @@ public class goToMainPage extends makeSettingsBrowser {
         return driver.findElement(By.linkText("Website Terms of Use"));
     }
 
-    WebElement popupCalendar() {
-        return driver.findElement(By.xpath("//div[@ng-transclude='contentSlot']"));
-    }
-
-    WebElement popupStartDate() {
-        return driver.findElement(By.className("start-date"));
-    }
-
     WebElement inputPassengersNumber(String passenger) {
         return driver.findElement(By.xpath("//div[@value='paxInput." + passenger + "']//input"));
     }
 
+    WebElement monthNovember() {
+        return driver.findElement(By.xpath("//h1[contains(text(), 'November 2017')]"));
+    }
 
 
 }

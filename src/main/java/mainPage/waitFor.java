@@ -62,6 +62,22 @@ public class waitFor extends makeSettingsBrowser{
         }
     }
 
+    public waitFor(WebElement webElement, int status) throws Exception {
+
+        this.webElement = webElement;
+
+        for (int second = 0; ;second ++) {
+            if (second >= 60) {
+                fail("Timeout to find:");
+            }
+            try {
+                if (webElement.isDisplayed()) break;
+            }
+            catch (Exception e) {}
+            Thread.sleep(1000);
+        }
+    }
+
     public waitFor (String waitForTitle) throws Exception {
 
         this.waitForTitle = waitForTitle;
