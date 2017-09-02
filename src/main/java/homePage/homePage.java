@@ -72,16 +72,18 @@ public class homePage extends makeSettingsBrowser {
         int number = 0;
 
 
-        for (int i = 1 ; i < numberFlights ; i ++) {
+        for (int i = 0 ; i < numberFlights ; i ++) {
             String text = driver.findElements(wayToDeparture(way)).get(i).getText();
-
             int Euro=0;
 
             for (int j = 0 ; j < text.length() ; j++) {
-                if (text.charAt(j) == '€') Euro = j;
+                if (text.charAt(j) == '€') {
+                    Euro = j;
+                    System.out.println("нашли " + driver.findElements(wayToDeparture(way)).get(i).getText().substring(Euro+2));
+                }
             }
 
-            double value = Double.parseDouble(driver.findElements(wayToDeparture(way)).get(i).getText().substring(Euro+1));
+            double value = Double.parseDouble(driver.findElements(wayToDeparture(way)).get(i).getText().substring(Euro+2));
 
             if (maxPrice < value) {
                 maxPrice = value;
@@ -89,7 +91,11 @@ public class homePage extends makeSettingsBrowser {
             }
         }
 
-        return driver.findElements(wayToDeparture(way)).get(number);
+        System.out.println(driver.findElements(wayToDeparture(way)).get(number));
+
+        //return driver.findElements(wayToDeparture(way)).get(number);
+        return driver.findElement(By.xpath("//flight-list[@id='" + way + "']" +
+                "//div[@class='flights-table-fares']"));
     }
 
     @Test(priority = 99)
@@ -97,9 +103,7 @@ public class homePage extends makeSettingsBrowser {
 
         new waitFor(continueB(), 1);
 
-        System.out.println(maxPriceB("outbound").getText());
-
-        maxPriceB("outbound").click();
+        maxPriceB("outbound").click();//положение кнопки надо
 
 
     }
