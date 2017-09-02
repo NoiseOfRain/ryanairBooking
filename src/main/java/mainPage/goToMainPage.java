@@ -105,15 +105,15 @@ public class goToMainPage extends makeSettingsBrowser {
         passengerPlusB("children").click();
         passengerPlusB("infants").click();
 
-
-
-        inputPassengersNumber()
-
-
+        Assert.assertEquals(inputPassengersNumber("adults").getAttribute("value"), "2");
+        Assert.assertEquals(inputPassengersNumber("teens").getAttribute("value"), "1");
+        Assert.assertEquals(inputPassengersNumber("children").getAttribute("value"), "1");
+        Assert.assertEquals(inputPassengersNumber("infants").getAttribute("value"), "1");
 
         /**предупреждение по детям*/
         new waitFor(popupInfant());
         buttonOkInfant().click();
+
 
 
         Thread.sleep(1000);
@@ -124,6 +124,21 @@ public class goToMainPage extends makeSettingsBrowser {
         passengerPlusM("teens").click();
         passengerPlusM("children").click();
         passengerPlusM("infants").click();
+
+        Assert.assertEquals(inputPassengersNumber("adults").getAttribute("value"), "1");
+        Assert.assertEquals(inputPassengersNumber("teens").getAttribute("value"), "0");
+        Assert.assertEquals(inputPassengersNumber("children").getAttribute("value"), "0");
+        Assert.assertEquals(inputPassengersNumber("infants").getAttribute("value"), "0");
+
+
+
+        /**
+         * <div class="info-box" ng-class="{'shown': paxInput.showMaxPassengersAlert}" role="alert">The maximum number of passengers is 25. If there are more than 25 passengers please use our group booking form.</div>
+         <div class="info-box" ng-class="{'shown': paxInput.showMaxTeensAndChildrenAlert}" role="alert">The maximum number of teens & children is 24.</div>
+         <div class="info-box" ng-class="{'shown': paxInput.showMaxInfantsAlert}" role="alert">The maximum number of infants is 18.</div>
+         <div class="info-box" ng-class="{'shown': paxInput.showInfantsAlert}" role="alert">You can't travel with more infants than adults</div>
+         */
+
 //
 
 
@@ -268,4 +283,7 @@ public class goToMainPage extends makeSettingsBrowser {
     WebElement inputPassengersNumber(String passenger) {
         return driver.findElement(By.xpath("//div[@value='paxInput." + passenger + "']//input"));
     }
+
+
+
 }
