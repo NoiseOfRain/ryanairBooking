@@ -16,35 +16,17 @@ public class goToMainPage extends makeSettingsBrowser {
 
         driver.get("https://www.ryanair.com/ie/en/");
 
-        driver.findElement(By.xpath("//div[@class='homepageheroloader-wrapper']//span")).isDisplayed();
-
         addScreenShot.screen("FerstScreen");
-
 
         new waitFor(continueB());
 
-        //new waitFor(By.className("homepageheroloader-wrapper")); - чет не работает доделать ожидание
-
-
-
         assert driver.getTitle().equals("Official Ryanair website | Cheap flights from Ireland | Ryanair");
 
-        oneWayTicketCheck();
-        twoWaysTicketsCheck();
 
         Assert.assertTrue(twoWaysTicketsCheck().isEnabled());
         Assert.assertTrue (oneWayTicketCheck().isEnabled());
 
-        /*
-        oneWayTicketCheck.click();
-        addScreenShot.screen("Test2");
-        */
-
-        /**
-         * поля ввода аэропорта
-         * driver.findElement(By.xpath("//input[@placeholder='Departure airport']")).sendKeys("Hamburg");
-         * driver.findElement(By.xpath("//input[@placeholder='Destination airport']")).sendKeys("Katowice");
-*/
+        /**поля ввода аэропорта*/
         Assert.assertTrue (inputLineFrom().isDisplayed());
         Assert.assertTrue (inputLineTo().isDisplayed());
 
@@ -59,6 +41,14 @@ public class goToMainPage extends makeSettingsBrowser {
         /**кнопка Летс Го*/
         new waitFor(letsGoB());
 
+        /**проверка на закрытие обратного полета*/
+        oneWayTicketCheck().click();
+
+        Assert.assertTrue(!inputFlyBack("DD").isDisplayed());
+        Thread.sleep(500);
+        twoWaysTicketsCheck().click();
+
+
         /**строки календаря*/
         inputFlyOut("DD").clear();
         inputFlyOut("DD").sendKeys("02");
@@ -70,9 +60,8 @@ public class goToMainPage extends makeSettingsBrowser {
 
 
         /**попап календаря*/
-        WebElement popupCalendar = driver.findElement(By.xpath("//div[@ng-transclude='contentSlot']"));
-        new waitFor(popupCalendar);
-        WebElement popupStartDate = driver.findElement(By.className("start-date"));
+        new waitFor(popupCalendar());
+        Assert.assertTrue(popupStartDate().isDisplayed());
 
         /**проверка стрелок*/
         System.out.println("strelka left " + leftArrow().isEnabled());
@@ -98,6 +87,7 @@ public class goToMainPage extends makeSettingsBrowser {
         inputFlyBack("YYYY").clear();
         inputFlyBack("YYYY").sendKeys("2017");
 
+        new waitFor(popupCalendar());
         Assert.assertTrue(popupEndDate().isDisplayed());
 
         /**добавляем пассажиров*/
@@ -115,6 +105,12 @@ public class goToMainPage extends makeSettingsBrowser {
         passengerPlusB("children").click();
         passengerPlusB("infants").click();
 
+
+
+        inputPassengersNumber()
+
+
+
         /**предупреждение по детям*/
         new waitFor(popupInfant());
         buttonOkInfant().click();
@@ -131,8 +127,8 @@ public class goToMainPage extends makeSettingsBrowser {
 //
 
 
-
-
+        /**проверить что ссылка на правила видна и достапна*/
+        Assert.assertTrue(agreeLink().isDisplayed() && agreeLink().isDisplayed());
         letsGoB().click();
 
 
@@ -259,5 +255,17 @@ public class goToMainPage extends makeSettingsBrowser {
 
     WebElement agreeLink() {
         return driver.findElement(By.linkText("Website Terms of Use"));
+    }
+
+    WebElement popupCalendar() {
+        return driver.findElement(By.xpath("//div[@ng-transclude='contentSlot']"));
+    }
+
+    WebElement popupStartDate() {
+        return driver.findElement(By.className("start-date"));
+    }
+
+    WebElement inputPassengersNumber(String passenger) {
+        return driver.findElement(By.xpath("//div[@value='paxInput." + passenger + "']//input"));
     }
 }
