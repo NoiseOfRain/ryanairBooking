@@ -61,8 +61,7 @@ public class homePage extends makeSettingsBrowser {
     }
 
     By wayToDeparture(String way) {
-        return By.xpath("//flight-list[@id='" + way + "']" +
-                "//div[@class='ranimate-flights-table flights-table__flight']");
+        return ;
     }
 
     WebElement maxPriceB(String way) {
