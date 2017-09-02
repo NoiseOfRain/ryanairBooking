@@ -2,6 +2,7 @@ package mainPage;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import settings.makeSettingsBrowser;
 
 /**
  * Created by noise on 01.09.17.

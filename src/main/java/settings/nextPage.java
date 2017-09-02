@@ -1,4 +1,4 @@
-package mainPage;
+package settings;
 
 import org.openqa.selenium.By;
 import saveLogs.addScreenShot;

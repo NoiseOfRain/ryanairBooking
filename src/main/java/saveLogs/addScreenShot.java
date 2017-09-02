@@ -6,7 +6,7 @@ import org.openqa.selenium.TakesScreenshot;
 
 import java.io.File;
 
-import static mainPage.makeSettingsBrowser.driver;
+import static settings.makeSettingsBrowser.driver;
 
 /**
  * Created by noise on 31.08.17.
