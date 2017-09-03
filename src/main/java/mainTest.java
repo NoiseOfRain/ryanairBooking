@@ -17,7 +17,7 @@ public class mainTest extends makeSettingsBrowser {
     @Test(priority = 1)
     public void mainPage() throws Exception {
         try {
-            chooseAirport("London Gatwick111");
+            chooseAirport("London Gatwick");
             selectDate("06-10-2017)", "31-10-2017");
             addPassengers(3, 1);
             letsGo();
