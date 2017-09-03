@@ -1,112 +1,127 @@
 package homePage;
 
-import settings.makeSettingsBrowser;
-import settings.waitFor;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+import saveLogs.addScreenShot;
+import settings.makeSettingsBrowser;
+import settings.waitFor;
+
+import static settings.waitFor.isElementPresent;
 
 /**
  * Created by noise on 02.09.17.
  */
 public class homePage extends makeSettingsBrowser {
 
-    public void bookingHome() throws Exception {
-
-        new waitFor(continueB(), 1);
-
-        Assert.assertTrue(title() == "https://www.ryanair.com/ie/en/booking/home");
-
-        Assert.assertTrue(passengers("Adults").getText().contains("3"));
-        Assert.assertTrue(passengers("Teen").getText().contains("1"));
-
-        priceB("outbound").click();
-        new waitFor(flightsT("outbound"), 1);
-
-
-
-        priceB("inbound").click();
-        new waitFor(flightsT("inbound"), 1);
-
+    WebElement passengers(String passengers) {
+        return driver.findElement(By.xpath("//span[contains(text(),'" + passengers + "')]"));
     }
 
+    WebElement totalCostT() {
+        return driver.findElement(By.className("breakdown"));
+    }
 
-    String title() {
-        return driver.getTitle();
+    WebElement tolalCostList() {
+        return driver.findElement(By.className("breakdown-list-container"));
     }
 
     WebElement continueB() {
         return driver.findElement(By.xpath("//span[@translate='trips.summary.buttons.btn_continue']"));
     }
 
-    WebElement passengers(String passengers) {
-        return driver.findElement(By.xpath("//span[contains(text(),'" + passengers + "')]"));
+    WebElement singUp() {
+        return driver.findElement(By.xpath("//span[@translate='MYRYANAIR.LAYOUT.HEADER.MYRYANAIR_SIGNUP']"));
     }
 
-    WebElement flightsT(String table) {
-        return driver.findElement(By.xpath("//flight-list[@id='" + table + "']" +
-                "//div[@class='flights-table-fares']"));
+    WebElement logIn() {
+        return driver.findElement(By.xpath("//span[@translate='MYRYANAIR.LAYOUT.HEADER.MYRYANAIR_LOGIN']"));
     }
 
-    WebElement priceB(String way) {
-        return driver.findElement(By.xpath("//flight-list[@id='" + way + "']" +
-                "//div[@class='flight-header__min-price hide-mobile']"));
+    String flightsTstring(String table) {
+        return "//flight-list[@id='" + table + "']";
     }
 
-    WebElement selectStandartB(String way) {
-        return driver.findElement(By.xpath("//flight-list[@id='" + way + "']" +
-                "//div[@class='flights-table-fares__fare standard']" +
-                "//button[@id='continue']"));
+    String depatureTstring(String way) {
+        return flightsTstring(way) + "//div[contains(@class, 'ranimate-flights-table flights-table__flight')]";
     }
 
-    By wayToDeparture(String way) {
-        return ;
+    String priceBstring(String way) {
+        return depatureTstring(way) + "//div[@class='flight-header__min-price hide-mobile']//span[contains(@class,'flights-table-price__price')]";
     }
 
-    WebElement maxPriceB(String way) {
-        int numberFlights = driver.findElements(wayToDeparture(way)).size();
+    String selectStandartB(String way) {
+        return flightsTstring(way) + "//button[@id='continue']";
+    }
+
+    WebElement maxPriceB(String way) throws InterruptedException {
+        int numberFlights = driver.findElements(By.xpath(depatureTstring(way))).size();
 
         double maxPrice = 0;
         int number = 0;
 
 
-        for (int i = 0 ; i < numberFlights ; i ++) {
-            String text = driver.findElements(wayToDeparture(way)).get(i).getText();
-            int Euro=0;
+        for (int i = 0; i < numberFlights; i++) {
+            if (isElementPresent(By.xpath(priceBstring(way)))) {
+                String text = driver.findElements(By.xpath(priceBstring(way))).get(i).getText();
+                int Euro = 0;
+                double value = 0;
 
-            for (int j = 0 ; j < text.length() ; j++) {
-                if (text.charAt(j) == '€') {
-                    Euro = j;
-                    System.out.println("нашли " + driver.findElements(wayToDeparture(way)).get(i).getText().substring(Euro+2));
+                for (int j = 0; j < text.length(); j++) {
+                    if (text.charAt(j) == '€') {
+                        Euro = j;
+                        value = Double.parseDouble(driver.findElements(By.xpath(priceBstring(way))).get(i).getText().substring(Euro + 2));
+                    }
+                }
+
+                if (maxPrice < value) {
+                    maxPrice = value;
+                    number = i;
                 }
             }
-
-            double value = Double.parseDouble(driver.findElements(wayToDeparture(way)).get(i).getText().substring(Euro+2));
-
-            if (maxPrice < value) {
-                maxPrice = value;
-                number = i;
-            }
         }
-
-        System.out.println(driver.findElements(wayToDeparture(way)).get(number));
-
-        //return driver.findElements(wayToDeparture(way)).get(number);
-        return driver.findElement(By.xpath("//flight-list[@id='" + way + "']" +
-                "//div[@class='flights-table-fares']"));
+        return driver.findElements(By.xpath(priceBstring(way))).get(number);
     }
 
-    @Test(priority = 99)
-    public void test() throws Exception {
+    @Test(priority = 9)
+    public void assertionsHomePage() throws Exception {
+        Thread.sleep(4000);
 
-        new waitFor(continueB(), 1);
+        Assert.assertTrue(driver.getCurrentUrl() == "https://www.ryanair.com/ie/en/booking/home");
+        Assert.assertTrue(singUp().isDisplayed());
+        Assert.assertTrue(logIn().isDisplayed());
+        Assert.assertTrue(continueB().isDisplayed());
 
-        maxPriceB("outbound").click();//положение кнопки надо
-
+        Assert.assertTrue(passengers("Adults").getText() == "3 Adults");
+        Assert.assertTrue(passengers("Teen").getText() == "1 Teen");
 
     }
 
 
+    @Test(priority = 10)
+    public void flyOut() throws Exception {
+        new waitFor(driver.findElement(By.xpath(flightsTstring("outbound"))), 1);
+        maxPriceB("outbound").click();
+        new waitFor(By.xpath(selectStandartB("outbound")));
+        driver.findElement(By.xpath(selectStandartB("outbound"))).click();
+        Thread.sleep(1000);
+    }
 
+    @Test(priority = 11)
+    public void flyTo() throws Exception {
+        new waitFor(driver.findElement(By.xpath(flightsTstring("inbound"))), 1);
+        maxPriceB("inbound").click();
+        new waitFor(By.xpath(selectStandartB("inbound")));
+        driver.findElement(By.xpath(selectStandartB("inbound"))).click();
+        Thread.sleep(1000);
+    }
+
+    @Test(priority = 12)
+    public void continueTest() throws Exception {
+        totalCostT().click();
+        new waitFor(tolalCostList(), 1);
+        addScreenShot.screen("TotalPlay");
+        continueB().click();
+    }
 }

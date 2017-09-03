@@ -11,7 +11,7 @@ import static org.testng.FileAssert.fail;
  */
 public class waitFor extends makeSettingsBrowser{
     By firstLocator;
-    String waitForTitle;
+    String waitForURl;
     WebElement webElement;
 
     public waitFor() throws Exception {
@@ -66,28 +66,28 @@ public class waitFor extends makeSettingsBrowser{
 
         this.webElement = webElement;
 
-        for (int second = 0; ;second ++) {
-            if (second >= 60) {
-                fail("Timeout to find:");
+            for (int second = 0; ;second ++) {
+                if (second >= 60) {
+                    fail("Timeout to find:");
+                }
+                try {
+                    if (webElement.isDisplayed()) break;
+                }
+                catch (Exception e) {}
+                Thread.sleep(1000);
             }
-            try {
-                if (webElement.isDisplayed()) break;
-            }
-            catch (Exception e) {}
-            Thread.sleep(1000);
-        }
     }
 
-    public waitFor (String waitForTitle) throws Exception {
+    public waitFor (String waitForURl) throws Exception {
 
-        this.waitForTitle = waitForTitle;
+        this.waitForURl = waitForURl;
 
         for (int second = 0; ;second ++) {
             if (second >= 60) {
                 fail("Timeout to find:");
             }
             try {
-                if (driver.getTitle().equals(waitForTitle)) break;
+                if (driver.getCurrentUrl().equals(waitForURl)) break;
             }
             catch (Exception e) {}
             Thread.sleep(1000);

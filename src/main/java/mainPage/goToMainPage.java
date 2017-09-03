@@ -16,7 +16,10 @@ public class goToMainPage extends mainPageObjects {
 
         addScreenShot.screen("FirstScreen");
 
+
+
         new waitFor(continueB());
+        Thread.sleep(1000);
 
         /**проверка наличия кнопок меню*/
         Assert.assertTrue(signupMenuB().isDisplayed());
@@ -59,10 +62,10 @@ public class goToMainPage extends mainPageObjects {
 
         /**строки календаря*/
         inputFlyOut("DD").click();
-        inputFlyOut("DD").sendKeys("05");
+        inputFlyOut("DD").sendKeys("06");
         Thread.sleep(500);
         inputFlyOut("MM").clear();
-        inputFlyOut("MM").sendKeys("09");
+        inputFlyOut("MM").sendKeys("10");
         inputFlyOut("YYYY").clear();
         inputFlyOut("YYYY").sendKeys("2017");
 
@@ -83,7 +86,7 @@ public class goToMainPage extends mainPageObjects {
         Thread.sleep(1000);
 
         inputFlyBack("DD").click();
-        inputFlyBack("DD").sendKeys("06");
+        inputFlyBack("DD").sendKeys("31");
         Thread.sleep(500);
         inputFlyBack("MM").clear();
         inputFlyBack("MM").sendKeys("10");
