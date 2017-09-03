@@ -14,9 +14,21 @@ public class extrasPage extends extrasPageObjects {
         Thread.sleep(5000);
 
         Assert.assertTrue(thisPage().equals("https://www.ryanair.com/ie/en/booking/extras"));
+        Assert.assertTrue(selectTourSeat().isDisplayed());
+        Assert.assertTrue(addYourBag().isDisplayed());
+        Assert.assertTrue(addPriorityBoarding().isDisplayed());
+        Assert.assertTrue(bookACar().isDisplayed());
+        Assert.assertTrue(bookAHotel().isDisplayed());
 
         System.out.println(commonObjects.getTotalCost());
+    }
 
+    @Test(priority = 21)
+    public void goNext() throws Exception {
+        checkOutB().click();
 
+        Assert.assertTrue(seatPromptPopup().isDisplayed());
+
+        okThanksB().click();
     }
 }
