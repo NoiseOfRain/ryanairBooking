@@ -10,7 +10,7 @@ import settings.commonObjects;
 public class extrasPage extends extrasPageObjects {
 
     @Test(priority = 20)
-    public void extrasPageCheck() throws Exception {
+    public static void extrasPageCheck() throws Exception {
         Thread.sleep(5000);
 
         Assert.assertTrue(thisPage().equals("https://www.ryanair.com/ie/en/booking/extras"));
@@ -24,7 +24,8 @@ public class extrasPage extends extrasPageObjects {
     }
 
     @Test(priority = 21)
-    public void goNext() throws Exception {
+    public static void goNext() throws Exception {
+        extrasPageCheck();
         checkOutB().click();
 
         Thread.sleep(1000);

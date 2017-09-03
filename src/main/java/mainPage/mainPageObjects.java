@@ -55,7 +55,7 @@ public class mainPageObjects extends makeSettingsBrowser {
         return driver.findElement(By.xpath("//span[@translate='common.buttons.lets_go']"));
     }
 
-    WebElement passangersB() {
+    static WebElement passangersB() {
         return driver.findElement(By.xpath("//div[@aria-label='Select number of passengers']"));
     }
 
@@ -76,11 +76,11 @@ public class mainPageObjects extends makeSettingsBrowser {
         return driver.findElement(By.xpath("//input[@placeholder='Destination airport']"));
     }
 
-    WebElement popupInfant() {
+    static WebElement popupInfant() {
         return driver.findElement(By.xpath("//span[@translate='foh.home.flight_search_infant_popup.message']"));
     }
 
-    WebElement buttonOkInfant() {
+    static WebElement buttonOkInfant() {
         return driver.findElement(By.xpath("//span[@translate='foh.home.flight_search_infant_popup.ok']"));
     }
 
@@ -88,21 +88,21 @@ public class mainPageObjects extends makeSettingsBrowser {
         return driver.findElement(By.xpath("//popup-content[contains(@class, 'core-popup-content-searchbox')]"));
     }
 
-    WebElement popubPassengers() {
+    static WebElement popubPassengers() {
         return driver.findElement(By.xpath("//popup-content[@role='listbox']"));
     }
-    WebElement passengerPlusB(String passenger) {
+    static WebElement passengerPlusB(String passenger) {
         return driver.findElement(By.xpath("//div[@value='paxInput." + passenger + "']//core-icon[@icon-id='glyphs.plus-circle']"));
     }
-    WebElement passengerPlusM(String passenger) {
+    static WebElement passengerPlusM(String passenger) {
         return driver.findElement(By.xpath("//div[@value='paxInput." + passenger + "']//core-icon[@icon-id='glyphs.minus-circle']"));
     }
 
-    WebElement agreeLink() {
+    static WebElement agreeLink() {
         return driver.findElement(By.linkText("Website Terms of Use"));
     }
 
-    WebElement inputPassengersNumber(String passenger) {
+    static WebElement inputPassengersNumber(String passenger) {
         return driver.findElement(By.xpath("//div[@value='paxInput." + passenger + "']//input"));
     }
 

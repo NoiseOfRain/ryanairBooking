@@ -15,7 +15,8 @@ public class makeSettingsBrowser {
     public static WebDriver driver;
 
     private String driverForBrowser = "webdriver.gecko.driver";
-    private String wayToDriver = "src/main/resources/drivers/geckodriver";
+    //private String wayToDriver = "src/main/resources/drivers/geckodriver";
+    private String wayToDriver = "src\\main\\resources\\drivers\\geckodriver.exe";
 
     @BeforeTest(alwaysRun = true)
     public void selectBrowser() throws Exception {
@@ -25,7 +26,7 @@ public class makeSettingsBrowser {
         driver = new FirefoxDriver();
         driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
     }
 
     @AfterTest(alwaysRun = true)

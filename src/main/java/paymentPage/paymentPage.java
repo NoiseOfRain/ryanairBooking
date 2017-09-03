@@ -11,7 +11,7 @@ import settings.commonObjects;
 public class paymentPage extends paymentPageObjects{
 
     @Test(priority = 30)
-    public void paymentPageCheck() throws Exception {
+    public static void paymentPageCheck() throws Exception {
         Thread.sleep(3000);
 
         Assert.assertTrue(thisPage().equals("https://www.ryanair.com/ie/en/booking/payment"));
@@ -24,7 +24,9 @@ public class paymentPage extends paymentPageObjects{
     }
 
     @Test(priority = 31)
-    public void paymentLogIn() throws Exception {
+    public static void paymentLogIn() throws Exception {
+        paymentPageCheck();
+
         logInB().click();
 
         eMailInput().sendKeys("noiseor@gmail.com");

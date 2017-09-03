@@ -11,31 +11,31 @@ import java.util.List;
  */
 public class paymentPageObjects extends makeSettingsBrowser {
 
-    String thisPage() {
+    static String thisPage() {
         return driver.getCurrentUrl();
     }
 
-    WebElement header() {
+    static WebElement header() {
         return driver.findElement(By.className("header-section"));
     }
 
-    WebElement signUpB() {
+    static WebElement signUpB() {
         return driver.findElement(By.xpath("//span[@translate='MYRYANAIR.SIGN_UP']"));
     }
 
-    WebElement logInB() {
+    static WebElement logInB() {
         return driver.findElement(By.xpath("//span[@translate='trips.checkout.passengers.login']"));
     }
 
-    WebElement eMailInput() {
+    static WebElement eMailInput() {
         return driver.findElement(By.xpath("//input[@placeholder='Email address']"));
     }
 
-    WebElement ePassInput() {
+    static WebElement ePassInput() {
         return driver.findElement(By.xpath("//input[@placeholder='Password']"));
     }
 
-    WebElement logInAuthorizationB() {
+    static WebElement logInAuthorizationB() {
         return driver.findElement(By.xpath("//button-spinner[@button-text='MYRYANAIR.AUTHORIZATION.LOGIN.LOGIN_AUTHORIZATION']"));
     }
 

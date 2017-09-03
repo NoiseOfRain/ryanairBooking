@@ -13,7 +13,8 @@ import static settings.makeSettingsBrowser.driver;
  */
 public class addScreenShot {
 
-    static String screenshotsWay = "src/main/resources/logs/";
+    //static String screenshotsWay = "src/main/resources/logs/";
+    static String screenshotsWay = "src\\main\\resources\\logs\\";
 
     public static void screen(String method) throws Exception {
 //создание скриншота

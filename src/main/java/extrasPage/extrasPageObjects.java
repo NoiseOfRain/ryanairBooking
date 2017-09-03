@@ -9,39 +9,39 @@ import settings.makeSettingsBrowser;
  */
 public class extrasPageObjects extends makeSettingsBrowser {
 
-    public String thisPage() {
+    public static String thisPage() {
         return driver.getCurrentUrl();
     }
 
-    WebElement selectTourSeat() {
+    static WebElement selectTourSeat() {
         return driver.findElement(By.xpath("//button[@translate='trips.extras.leaderboard.quick-card.SEATS.button.select']"));
     }
 
-    WebElement addYourBag() {
+    static WebElement addYourBag() {
         return driver.findElement(By.xpath("//button[@translate='trips.extras.leaderboard.quick-card.BAGS.button.select']"));
     }
 
-    WebElement addPriorityBoarding() {
+    static WebElement addPriorityBoarding() {
         return driver.findElement(By.xpath("//button[@translate='trips.extras.leaderboard.quick-card.PRIOBRDNG.button.select']"));
     }
 
-    WebElement bookACar() {
+    static WebElement bookACar() {
         return driver.findElement(By.xpath("//button[@translate='trips.extras.leaderboard.quick-card.CARHIRE.button.select']"));
     }
 
-    WebElement bookAHotel() {
+    static WebElement bookAHotel() {
         return driver.findElement(By.xpath("//button[@translate='trips.extras.leaderboard.quick-card.ACCOMMODATION.button.select']"));
     }
 
-    WebElement checkOutB() {
+    static WebElement checkOutB() {
         return driver.findElement(By.xpath("//button[@translate='trips.summary.buttons.btn_checkout']"));
     }
 
-    WebElement seatPromptPopup() {
+    static WebElement seatPromptPopup() {
         return driver.findElement(By.className("seat-prompt-popup"));
     }
 
-    WebElement okThanksB() {
+    static WebElement okThanksB() {
         return driver.findElement(By.xpath("//button[@translate='trips.summary.seat.prompt.popup.reject']"));
     }
 

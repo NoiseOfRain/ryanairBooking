@@ -7,13 +7,17 @@ import saveLogs.addScreenShot;
 import settings.commonObjects;
 import settings.waitFor;
 
+import static settings.commonObjects.getTotalAdults;
+import static settings.commonObjects.getTotalTeen;
+import static settings.commonObjects.totalAdults;
+
 /**
  * Created by noise on 02.09.17.
  */
 public class homePage extends homePageObjects {
 
     @Test(priority = 9)
-    public void assertionsHomePage() throws Exception {
+    public static void assertionsHomePage() throws Exception {
         Thread.sleep(5000);
 
         Assert.assertTrue(driver.getCurrentUrl().equals("https://www.ryanair.com/ie/en/booking/home"));
@@ -22,13 +26,14 @@ public class homePage extends homePageObjects {
         Assert.assertTrue(logIn().isEnabled());
         Assert.assertTrue(continueB().isEnabled());
 
-        Assert.assertTrue(passengers("Adults").getText().equals("3 Adults"));
-        Assert.assertTrue(passengers("Teen").getText().equals("1 Teen"));
+        Assert.assertTrue(passengers("Adult").getText().equals(getTotalAdults() + " Adult" + addToEndS(getTotalAdults())));
+        Assert.assertTrue(passengers("Teen").getText().equals(getTotalTeen() + " Teen" + addToEndS(getTotalTeen())));
     }
 
 
     @Test(priority = 10)
-    public void flyOut() throws Exception {
+    public static void  selectFlyOut() throws Exception {
+        assertionsHomePage();
         new waitFor(driver.findElement(By.xpath(flightsTstring("outbound"))), 1);
         maxPriceB("outbound").click();
         new waitFor(By.xpath(selectStandartB("outbound")));
@@ -37,7 +42,7 @@ public class homePage extends homePageObjects {
     }
 
     @Test(priority = 11)
-    public void flyTo() throws Exception {
+    public static void selectFlyTo() throws Exception {
         new waitFor(driver.findElement(By.xpath(flightsTstring("inbound"))), 1);
         maxPriceB("inbound").click();
         new waitFor(By.xpath(selectStandartB("inbound")));
@@ -46,7 +51,7 @@ public class homePage extends homePageObjects {
     }
 
     @Test(priority = 12)
-    public void continueTest() throws Exception {
+    public static void clickContinue() throws Exception {
         totalCostT().click();
         new waitFor(tolalCostList(), 1);
         addScreenShot.screen("TotalPlay");

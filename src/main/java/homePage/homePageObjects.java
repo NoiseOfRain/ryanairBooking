@@ -11,55 +11,55 @@ import static settings.waitFor.isElementPresent;
  */
 public class homePageObjects extends makeSettingsBrowser {
 
-    WebElement totalCostPrice() {
+    static WebElement totalCostPrice() {
         return driver.findElement(By.xpath("//div[@class='price-number notranslate short-price']"));
     }
 
-    public Double totalCostDouble() {
+    public static Double totalCostDouble() {
         return Double.parseDouble(totalCostPrice().getText().substring(2));
     }
 
-    WebElement passengers(String passengers) {
+    static WebElement passengers(String passengers) {
         return driver.findElement(By.xpath("//span[contains(text(),'" + passengers + "')]"));
     }
 
-    WebElement totalCostT() {
+    static WebElement totalCostT() {
         return driver.findElement(By.className("breakdown"));
     }
 
-    WebElement tolalCostList() {
+    static WebElement tolalCostList() {
         return driver.findElement(By.className("breakdown-list-container"));
     }
 
-    WebElement continueB() {
+    static WebElement continueB() {
         return driver.findElement(By.xpath("//span[@translate='trips.summary.buttons.btn_continue']"));
     }
 
-    WebElement singUp() {
+    static WebElement singUp() {
         return driver.findElement(By.xpath("//span[@translate='MYRYANAIR.LAYOUT.HEADER.MYRYANAIR_SIGNUP']"));
     }
 
-    WebElement logIn() {
+    static WebElement logIn() {
         return driver.findElement(By.xpath("//span[@translate='MYRYANAIR.LAYOUT.HEADER.MYRYANAIR_LOGIN']"));
     }
 
-    String flightsTstring(String table) {
+    static String flightsTstring(String table) {
         return "//flight-list[@id='" + table + "']";
     }
 
-    String depatureTstring(String way) {
+    static String depatureTstring(String way) {
         return flightsTstring(way) + "//div[contains(@class, 'ranimate-flights-table flights-table__flight')]";
     }
 
-    String priceBstring(String way) {
+    static String priceBstring(String way) {
         return depatureTstring(way) + "//div[@class='flight-header__min-price hide-mobile']//span[contains(@class,'flights-table-price__price')]";
     }
 
-    String selectStandartB(String way) {
+    static String selectStandartB(String way) {
         return flightsTstring(way) + "//button[@id='continue']";
     }
 
-    WebElement maxPriceB(String way) throws InterruptedException {
+    static WebElement maxPriceB(String way) throws InterruptedException {
         int numberFlights = driver.findElements(By.xpath(depatureTstring(way))).size();
 
         double maxPrice = 0;
@@ -86,5 +86,10 @@ public class homePageObjects extends makeSettingsBrowser {
             }
         }
         return driver.findElements(By.xpath(priceBstring(way))).get(number);
+    }
+
+    public static String addToEndS(int numbers) {
+        if (numbers > 1) return "s";
+        else return "";
     }
 }
