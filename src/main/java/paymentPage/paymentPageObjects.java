@@ -43,6 +43,16 @@ public class paymentPageObjects extends makeSettingsBrowser {
         return driver.findElement(By.className("overall-total"));
     }
 
+    Double total(WebElement overTotal) {
+        int priceFrom = 0;
+        for (int i = 0 ; i < overTotal.getText().length() ; i++) {
+            if (overTotal.getText().charAt(i) == '€') {
+                priceFrom = i;
+            }
+        }
+        return Double.parseDouble(overTotal.getText().substring(priceFrom + 2));
+    }
+
     /**заполняем пользователей*/
 
     String passengerInputS() {
@@ -89,7 +99,7 @@ public class paymentPageObjects extends makeSettingsBrowser {
     }
 
     WebElement expiryYearSelect() {
-        return driver.findElement(By.xpath("//select[@name='expiryYear']//option[@label='2020']"));
+        return driver.findElement(By.xpath("//select[@name='expiryYear']//option[@label='2018']"));
     }
 
     WebElement securityCodeI() {
@@ -121,7 +131,7 @@ public class paymentPageObjects extends makeSettingsBrowser {
     }
 
     WebElement errorTitle() {
-        return driver.findElement(By.xpath("//div[@translate='common.components.failed-payment.title']"));
+        return driver.findElement(By.xpath("//h4[@translate='common.components.failed-payment.title']"));
     }
 
 }

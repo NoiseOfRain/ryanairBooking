@@ -12,7 +12,7 @@ public class paymentPage extends paymentPageObjects{
 
     @Test(priority = 30)
     public void paymentPageCheck() throws Exception {
-        Thread.sleep(5000);
+        Thread.sleep(3000);
 
         Assert.assertTrue(thisPage().equals("https://www.ryanair.com/ie/en/booking/payment"));
 
@@ -36,9 +36,7 @@ public class paymentPage extends paymentPageObjects{
     @Test(priority = 32)
     public void paymentCheckTotal() throws Exception {
         Thread.sleep(1000);
-
-        System.out.println(commonObjects.getTotalCost());
-        System.out.println(overTotal().getText());
+        Assert.assertTrue(commonObjects.getTotalCost().equals(total(overTotal())));
     }
 
     @Test(priority = 33)
@@ -65,23 +63,20 @@ public class paymentPage extends paymentPageObjects{
         cardTypeSelect().click();
         expiryMonthSelect().click();
         expiryYearSelect().click();
-        securityCodeI().sendKeys("335");
+        securityCodeI().sendKeys("265");
         cardHolderNameI().sendKeys("Vasya");
         Thread.sleep(500);
         payNow().click();
-        Thread.sleep(5000);
+        Thread.sleep(4000);
     }
 
     @Test(priority = 37)
     public void errorPay() throws Exception {
-        while (true) {
+        for (int i = 0 ; i < 2 ; i++){
             paymentMethod();
-
-            if (errorTitle().isDisplayed()) {
-                addScreenShot.screen("End");
-                break;
-            }
         }
+        Assert.assertTrue(errorTitle().isDisplayed());
+        addScreenShot.screen("End");
     }
 
     @Test(priority = 38)
