@@ -27,6 +27,7 @@ public class extrasPage extends extrasPageObjects {
     public void goNext() throws Exception {
         checkOutB().click();
 
+        Thread.sleep(1000);
         Assert.assertTrue(seatPromptPopup().isDisplayed());
 
         okThanksB().click();

@@ -140,7 +140,7 @@ public class goToMainPage extends mainPageObjects {
         inputPassengersNumber("adults").sendKeys("3");
         inputPassengersNumber("teens").click();
         inputPassengersNumber("teens").sendKeys("1");
-        Thread.sleep(500);
+        Thread.sleep(1000);
         passangersB().click();
 
         /**проверить что ссылка на правила видна и доступна*/
