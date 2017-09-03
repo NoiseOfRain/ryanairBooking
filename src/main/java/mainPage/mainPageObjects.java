@@ -9,49 +9,49 @@ import settings.makeSettingsBrowser;
  */
 public class mainPageObjects extends makeSettingsBrowser {
 
-    WebElement signupMenuB() {
+    static WebElement signupMenuB() {
         return driver.findElement(By.id("myryanair-auth-signup"));
     }
-    WebElement loginMenuB() {
+    static WebElement loginMenuB() {
         return driver.findElement(By.id("myryanair-auth-login"));
     }
-    WebElement helpMenuB() {
+    static WebElement helpMenuB() {
         return driver.findElement(By.id("menu-links-right"));
     }
-    WebElement lenguageMenuB() {
+    static WebElement lenguageMenuB() {
         return driver.findElement(By.id("markets"));
     }
 
-    WebElement twoWaysTicketsCheck() {
+    static WebElement twoWaysTicketsCheck() {
         return driver.findElement(By.id("flight-search-type-option-return"));
     }
-    WebElement oneWayTicketCheck() {
+    static WebElement oneWayTicketCheck() {
         return driver.findElement(By.id("flight-search-type-option-one-way"));
     }
 
-    WebElement continueB() {
+    static WebElement continueB() {
         return driver.findElement(By.xpath("//span[@translate='common.buttons.continue']"));
     }
 
-    WebElement inputFlyOut(String parameter) {
+    static WebElement inputFlyOut(String parameter) {
         return driver.findElement(By.xpath("//input[@aria-label='Fly out: - " + parameter + "']"));
     }
-    WebElement inputFlyBack(String parameter) {
+    static WebElement inputFlyBack(String parameter) {
         return driver.findElement(By.xpath("//input[@aria-label='Fly back: - " + parameter + "']"));
     }
 
-    WebElement airportName() {
+    static WebElement airportName() {
         return driver.findElement(By.xpath("//strong[contains(text(), 'London Gatwick')]"));
     }
 
-    WebElement leftArrow() {
+    static WebElement leftArrow() {
         return driver.findElement(By.xpath("//button[@class='arrow left']"));
     }
-    WebElement rightArrow() {
+    static WebElement rightArrow() {
         return driver.findElement(By.xpath("//button[@class='arrow right']"));
     }
 
-    WebElement letsGoB() {
+    static WebElement letsGoB() {
         return driver.findElement(By.xpath("//span[@translate='common.buttons.lets_go']"));
     }
 
@@ -59,20 +59,20 @@ public class mainPageObjects extends makeSettingsBrowser {
         return driver.findElement(By.xpath("//div[@aria-label='Select number of passengers']"));
     }
 
-    WebElement popupCalendar() {
+    static WebElement popupCalendar() {
         return driver.findElement(By.xpath("//div[@ng-transclude='contentSlot']"));
     }
-    WebElement popupStartDate() {
+    static WebElement popupStartDate() {
         return driver.findElement(By.className("start-date"));
     }
-    WebElement popupEndDate() {
+    static WebElement popupEndDate() {
         return driver.findElement(By.className("end-date"));
     }
 
-    WebElement inputLineFrom() {
+    static WebElement inputLineFrom() {
         return driver.findElement(By.xpath("//input[@placeholder='Departure airport']"));
     }
-    WebElement inputLineTo() {
+    static WebElement inputLineTo() {
         return driver.findElement(By.xpath("//input[@placeholder='Destination airport']"));
     }
 
@@ -84,7 +84,7 @@ public class mainPageObjects extends makeSettingsBrowser {
         return driver.findElement(By.xpath("//span[@translate='foh.home.flight_search_infant_popup.ok']"));
     }
 
-    WebElement popupAirports() {
+    static WebElement popupAirports() {
         return driver.findElement(By.xpath("//popup-content[contains(@class, 'core-popup-content-searchbox')]"));
     }
 
@@ -106,7 +106,7 @@ public class mainPageObjects extends makeSettingsBrowser {
         return driver.findElement(By.xpath("//div[@value='paxInput." + passenger + "']//input"));
     }
 
-    WebElement monthNovember() {
+    static WebElement monthNovember() {
         return driver.findElement(By.xpath("//h1[contains(text(), 'November 2017')]"));
     }
 }

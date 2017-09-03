@@ -5,18 +5,19 @@ import org.testng.annotations.Test;
 import saveLogs.addScreenShot;
 import settings.waitFor;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 /**
  * Created by noise on 31.08.17.
  */
 public class goToMainPage extends mainPageObjects {
 
     @Test
-    public void MainPageCheckElements() throws Exception {
+    public static void MainPageCheckElements() throws Exception {
         driver.get("https://www.ryanair.com/ie/en/");
 
         addScreenShot.screen("FirstScreen");
-
-
 
         new waitFor(continueB());
         Thread.sleep(1000);
@@ -35,12 +36,14 @@ public class goToMainPage extends mainPageObjects {
         /**поля ввода аэропорта*/
         Assert.assertTrue(inputLineFrom().isDisplayed());
         Assert.assertTrue(inputLineTo().isDisplayed());
-
-        inputLineTo().sendKeys("London Gatwick");
     }
 
     @Test(priority = 1)
-    public void chooseAirport() throws Exception {
+    public static void chooseAirport(String aiport) throws Exception {
+
+        MainPageCheckElements();
+        inputLineTo().sendKeys(aiport);
+
         /**попап аэропортов*/
         popupAirports().isEnabled();
 
@@ -52,7 +55,7 @@ public class goToMainPage extends mainPageObjects {
     }
 
     @Test(priority = 2)
-    public void selectDate() throws Exception {
+    public static void selectDate(SipleDateFormat("dd-MM-YYYY") outDate, Date backDate) throws Exception {
         /**проверка на закрытие обратного полета*/
         oneWayTicketCheck().click();
 
