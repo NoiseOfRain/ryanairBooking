@@ -19,8 +19,6 @@ public class goToMainPage extends mainPageObjects {
 
     @Test
     public static void MainPageCheckElements() throws Exception {
-        driver.get("https://www.ryanair.com/ie/en/");
-
         addScreenShot.screen("FirstScreen");
 
         new waitFor(continueB());
@@ -40,6 +38,8 @@ public class goToMainPage extends mainPageObjects {
         /**поля ввода аэропорта*/
         Assert.assertTrue(inputLineFrom().isDisplayed());
         Assert.assertTrue(inputLineTo().isDisplayed());
+
+        coociesPolicy().click();
     }
 
     @Test(priority = 1)
@@ -52,7 +52,7 @@ public class goToMainPage extends mainPageObjects {
         popupAirports().isEnabled();
 
         Thread.sleep(1500);
-        airportName().click();
+        airportName(aiport).click();
 
         /**кнопка Летс Го*/
         new waitFor(letsGoB());
@@ -67,10 +67,6 @@ public class goToMainPage extends mainPageObjects {
         Thread.sleep(500);
         twoWaysTicketsCheck().click();
 
-
-        System.out.println(outDate.substring(0, 2));
-        System.out.println(outDate.substring(3, 5));
-        System.out.println(outDate.substring(6, 10));
         /**строки календаря*/
         inputFlyOut("DD").click();
         inputFlyOut("DD").sendKeys(outDate.substring(0, 2));

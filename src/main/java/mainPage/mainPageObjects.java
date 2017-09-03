@@ -9,6 +9,10 @@ import settings.makeSettingsBrowser;
  */
 public class mainPageObjects extends makeSettingsBrowser {
 
+    static WebElement coociesPolicy() {
+        return driver.findElement(By.className("close-icon"));
+    }
+
     static WebElement signupMenuB() {
         return driver.findElement(By.id("myryanair-auth-signup"));
     }
@@ -40,8 +44,8 @@ public class mainPageObjects extends makeSettingsBrowser {
         return driver.findElement(By.xpath("//input[@aria-label='Fly back: - " + parameter + "']"));
     }
 
-    static WebElement airportName() {
-        return driver.findElement(By.xpath("//strong[contains(text(), 'London Gatwick')]"));
+    static WebElement airportName(String name) {
+        return driver.findElement(By.xpath("//strong[contains(text(), '" + name + "')]"));
     }
 
     static WebElement leftArrow() {

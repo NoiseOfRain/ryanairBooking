@@ -14,6 +14,9 @@ public class makeSettingsBrowser {
 
     public static WebDriver driver;
 
+    //static String wayToFile = "src/main/resources/logs/";
+    public static String wayToFile = "src\\main\\resources\\logs\\";
+
     private String driverForBrowser = "webdriver.gecko.driver";
     //private String wayToDriver = "src/main/resources/drivers/geckodriver";
     private String wayToDriver = "src\\main\\resources\\drivers\\geckodriver.exe";
@@ -27,6 +30,8 @@ public class makeSettingsBrowser {
         driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //driver.manage().window().maximize();
+
+        driver.get("https://www.ryanair.com/ie/en/");
     }
 
     @AfterTest(alwaysRun = true)

@@ -7,19 +7,17 @@ import org.openqa.selenium.TakesScreenshot;
 import java.io.File;
 
 import static settings.makeSettingsBrowser.driver;
+import static settings.makeSettingsBrowser.wayToFile;
 
 /**
  * Created by noise on 31.08.17.
  */
 public class addScreenShot {
 
-    //static String screenshotsWay = "src/main/resources/logs/";
-    static String screenshotsWay = "src\\main\\resources\\logs\\";
-
     public static void screen(String method) throws Exception {
 //создание скриншота
         File screen = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(screen, new File(screenshotsWay +
+        FileUtils.copyFile(screen, new File(wayToFile +
                 method + ".png"));
     }
 }

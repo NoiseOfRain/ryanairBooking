@@ -11,6 +11,10 @@ import static settings.waitFor.isElementPresent;
  */
 public class homePageObjects extends makeSettingsBrowser {
 
+    static WebElement closeIcon() {
+        return driver.findElement(By.xpath("//core-icon[contains(@class,'register-login-bar-close')]"));
+    }
+
     static WebElement totalCostPrice() {
         return driver.findElement(By.xpath("//div[@class='price-number notranslate short-price']"));
     }

@@ -4,6 +4,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import saveLogs.addScreenShot;
 import settings.commonObjects;
+import settings.waitFor;
+
+import static settings.waitFor.isElementPresent;
 
 /**
  * Created by noise on 03.09.17.
@@ -24,65 +27,59 @@ public class paymentPage extends paymentPageObjects{
     }
 
     @Test(priority = 31)
-    public static void paymentLogIn() throws Exception {
+    public static void paymentLogIn(String login, String password) throws Exception {
         paymentPageCheck();
 
         logInB().click();
 
-        eMailInput().sendKeys("noiseor@gmail.com");
-        ePassInput().sendKeys("8JvFQXev1");
+        eMailInput().sendKeys(login);
+        ePassInput().sendKeys(password);
 
         logInAuthorizationB().click();
     }
 
-    @Test(priority = 32)
-    public void paymentCheckTotal() throws Exception {
-        Thread.sleep(1000);
-        Assert.assertTrue(commonObjects.getTotalCost().equals(total(overTotal())));
-    }
-
     @Test(priority = 33)
-    public void passengerFillAll() throws Exception {
+    public static void passengerFillAll() throws Exception {
         passengersFill();
     }
 
     @Test(priority = 34)
-    public void contactDetails() throws Exception {
-        selectCountry().click();
-        phoneNomberI().sendKeys("9993659955");
+    public static void fillContactDetails(String country, String phoneNumber) throws Exception {
+        selectCountry(country).click();
+        phoneNomberI().sendKeys(phoneNumber);
     }
 
     @Test(priority = 35)
-    public void billingAddress() throws Exception {
-        billingAddressAddressLine1I().sendKeys("street");
-        billingAddressCityI().sendKeys("tlt");
+    public static void billingAddress(String address, String city) throws Exception {
+        billingAddressAddressLine1I().sendKeys(address);
+        billingAddressCityI().sendKeys(city);
         acceptPolicyCheck().click();
     }
 
     @Test(priority = 36)
-    public void paymentMethod() throws Exception {
-        cardNomberI().sendKeys("5555555555555557");
-        cardTypeSelect().click();
-        expiryMonthSelect().click();
-        expiryYearSelect().click();
-        securityCodeI().sendKeys("265");
-        cardHolderNameI().sendKeys("Vasya");
-        Thread.sleep(500);
-        payNow().click();
-        Thread.sleep(4000);
-    }
+    public static void fillPaymentMethod(String cardNumber, int monthCard, int yearCard, int securityCode,
+                                         String holderName) throws Exception {
+        Assert.assertTrue(commonObjects.getTotalCost().equals(total(overTotal())));
 
-    @Test(priority = 37)
-    public void errorPay() throws Exception {
-        for (int i = 0 ; i < 2 ; i++){
-            paymentMethod();
+        //for (int i = 0 ; i < 3 ; i++){
+        while (true) {
+            cardNomberI().sendKeys(cardNumber);
+            cardTypeSelect().click();
+            expiryMonthSelect(monthCard).click();
+            expiryYearSelect(yearCard).click();
+            securityCodeI().sendKeys(securityCode + "");
+            cardHolderNameI().sendKeys(holderName);
+            Thread.sleep(500);
+            payNow().click();
+
+            //new waitFor(errorMessage());
+
+            if (isElementPresent(errorTitle())) {
+                break;
+            }
         }
-        Assert.assertTrue(errorTitle().isDisplayed());
-        addScreenShot.screen("End");
-    }
 
-    @Test(priority = 38)
-    public void END() throws Exception {
-        System.out.println("OK?");
+        Assert.assertTrue(driver.findElement(errorTitle()).isDisplayed());
+        addScreenShot.screen("End");
     }
 }

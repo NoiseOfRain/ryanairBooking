@@ -39,11 +39,11 @@ public class paymentPageObjects extends makeSettingsBrowser {
         return driver.findElement(By.xpath("//button-spinner[@button-text='MYRYANAIR.AUTHORIZATION.LOGIN.LOGIN_AUTHORIZATION']"));
     }
 
-    WebElement overTotal() {
+    static WebElement overTotal() {
         return driver.findElement(By.className("overall-total"));
     }
 
-    Double total(WebElement overTotal) {
+    static Double total(WebElement overTotal) {
         int priceFrom = 0;
         for (int i = 0 ; i < overTotal.getText().length() ; i++) {
             if (overTotal.getText().charAt(i) == '€') {
@@ -55,19 +55,21 @@ public class paymentPageObjects extends makeSettingsBrowser {
 
     /**заполняем пользователей*/
 
-    String passengerInputS() {
+    static String passengerInputS() {
         return "//passenger-input-group";
     }
 
-    String passengerS(String name) {
+    static String passengerS(String name) {
         return "//select[@ng-model='passenger.name." + name + "']";
     }
 
-    String passengerI(String name) {
+    static String passengerI(String name) {
         return "//input[@ng-model='passenger.name." + name + "']";
     }
 
-    public void passengersFill() {
+
+
+    public static void passengersFill() {
         List<WebElement> passengers = driver.findElements(By.xpath(passengerInputS()));
         for (int i = 0 ; i < passengers.size() ; i++) {
             driver.findElements(By.xpath(passengerInputS()+passengerS("title")+"//option[@label='Mr']")).get(i).click();
@@ -78,60 +80,60 @@ public class paymentPageObjects extends makeSettingsBrowser {
         }
     }
 
-    WebElement selectCountry() {
-        return driver.findElement(By.xpath("//option[@label='Russia']"));
+    static WebElement selectCountry(String country) {
+        return driver.findElement(By.xpath("//option[@label='" + country + "']"));
     }
 
-    WebElement phoneNomberI() {
+    static WebElement phoneNomberI() {
         return driver.findElement(By.xpath("//input[@name='phoneNumber']"));
     }
 
-    WebElement cardNomberI() {
+    static WebElement cardNomberI() {
         return driver.findElement(By.xpath("//input[@name='cardNumber']"));
     }
 
-    WebElement cardTypeSelect() {
+    static WebElement cardTypeSelect() {
         return driver.findElement(By.xpath("//option[@label='MasterCard Debit']"));
     }
 
-    WebElement expiryMonthSelect() {
-        return driver.findElement(By.xpath("//select[@name='expiryMonth']//option[@label='10']"));
+    static WebElement expiryMonthSelect(int month) {
+        return driver.findElement(By.xpath("//select[@name='expiryMonth']//option[@label='" + month + "']"));
     }
 
-    WebElement expiryYearSelect() {
-        return driver.findElement(By.xpath("//select[@name='expiryYear']//option[@label='2018']"));
+    static WebElement expiryYearSelect(int year) {
+        return driver.findElement(By.xpath("//select[@name='expiryYear']//option[@label='" + year + "']"));
     }
 
-    WebElement securityCodeI() {
+    static WebElement securityCodeI() {
         return driver.findElement(By.xpath("//input[@name='securityCode']"));
     }
 
-    WebElement cardHolderNameI() {
+    static WebElement cardHolderNameI() {
         return driver.findElement(By.xpath("//input[@name='cardHolderName']"));
     }
 
-    WebElement billingAddressAddressLine1I() {
+    static WebElement billingAddressAddressLine1I() {
         return driver.findElement(By.xpath("//input[@name='billingAddressAddressLine1']"));
     }
 
-    WebElement billingAddressCityI() {
+    static WebElement billingAddressCityI() {
         return driver.findElement(By.xpath("//input[@name='billingAddressCity']"));
     }
 
-    WebElement acceptPolicyCheck() {
+    static WebElement acceptPolicyCheck() {
         return driver.findElement(By.xpath("//input[@name='acceptPolicy']"));
     }
 
-    WebElement payNow() {
+    static WebElement payNow() {
         return driver.findElement(By.xpath("//button[@translate='common.components.payment_forms.pay_now']"));
     }
 
-    WebElement errorMessage() {
-        return driver.findElement(By.xpath("//div[@translate='common.components.payment_forms.error_title']"));
+    static By errorMessage() {
+        return By.xpath("//div[@translate='common.components.payment_forms.error_title']");
     }
 
-    WebElement errorTitle() {
-        return driver.findElement(By.xpath("//h4[@translate='common.components.failed-payment.title']"));
+    static By errorTitle() {
+        return By.xpath("//h4[@translate='common.components.failed-payment.title']");
     }
 
 }

@@ -6,7 +6,8 @@ import static homePage.homePage.clickContinue;
 import static homePage.homePage.selectFlyOut;
 import static homePage.homePage.selectFlyTo;
 import static mainPage.goToMainPage.*;
-import static paymentPage.paymentPage.paymentLogIn;
+import static paymentPage.paymentPage.*;
+import static saveLogs.saveExeption.saveExeption;
 
 /**
  * Created by noise on 03.09.17.
@@ -15,26 +16,46 @@ public class mainTest extends makeSettingsBrowser {
 
     @Test(priority = 1)
     public void mainPage() throws Exception {
-        chooseAirport("London Gatwick");
-        selectDate("06-10-2017)", "31-10-2017");
-        addPassengers(3, 1);
-        letsGo();
+        try {
+            chooseAirport("London Gatwick111");
+            selectDate("06-10-2017)", "31-10-2017");
+            addPassengers(3, 1);
+            letsGo();
+        } catch (Exception e) {
+            saveExeption(e);
+        }
     }
 
     @Test(priority = 2)
     public void homePage() throws Exception {
-        selectFlyOut();
-        selectFlyTo();
-        clickContinue();
+        try {
+            selectFlyOut();
+            selectFlyTo();
+            clickContinue();
+        } catch (Exception e) {
+            saveExeption(e);
+        }
     }
 
     @Test(priority = 3)
     public void extrasPage() throws Exception {
-        goNext();
+        try {
+            goNext();
+        } catch (Exception e) {
+            saveExeption(e);
+        }
     }
 
     @Test(priority = 4)
     public void paymentPage() throws Exception {
-        paymentLogIn();
+        try {
+            paymentLogIn("noiseor@gmail.com", "8JvFQXev1");
+            passengerFillAll();
+            fillContactDetails("Russia", "9993659955");
+            billingAddress("street", "tlt");
+            fillPaymentMethod("5555555555555557",10,2020,368,"Vasilyi");
+        } catch (Exception e) {
+            saveExeption(e);
+        }
     }
 }
