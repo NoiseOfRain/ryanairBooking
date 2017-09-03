@@ -1,9 +1,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="test">
     <test name="test">
-        <packages>
-            <package name="mainPage"/>
-            <package name="homePage"/>
-        </packages>
+        <classes>
+            <class name="mainTest"/>
+        </classes>
     </test>
 </suite>
