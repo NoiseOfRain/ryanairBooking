@@ -18,9 +18,9 @@ public class makeSettingsBrowser {
    // public static String wayToFile = "src\\main\\resources\\logs\\";
     private String driverForBrowser = "webdriver.gecko.driver";
 
-    //private String wayToDriver = "src/main/resources/drivers/geckodriverLunux";
+    private String wayToDriver = "src/main/resources/drivers/geckodriverLunux";
     //private String wayToDriver = "src\\main\\resources\\drivers\\geckodriver.exe";
-    private String wayToDriver = "src/main/resources/drivers/geckodriverMac";
+    //private String wayToDriver = "src/main/resources/drivers/geckodriverMac";
 
     @BeforeTest(alwaysRun = true)
     public void selectBrowser() throws Exception {
