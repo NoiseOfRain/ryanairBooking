@@ -19,9 +19,7 @@ public class homePage extends homePageObjects {
     @Test(priority = 9)
     public static void assertionsHomePage() throws Exception {
 
-        Thread.sleep(5000);
-
-        Assert.assertTrue(driver.getCurrentUrl().equals("https://www.ryanair.com/ie/en/booking/home"));
+        Assert.assertTrue(homePage());
 
         Assert.assertTrue(singUp().isEnabled());
         Assert.assertTrue(logIn().isEnabled());

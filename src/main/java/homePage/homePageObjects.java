@@ -11,6 +11,10 @@ import static settings.waitFor.isElementPresent;
  */
 public class homePageObjects extends makeSettingsBrowser {
 
+    static boolean homePage() {
+        return driver.getCurrentUrl().equals("https://www.ryanair.com/ie/en/booking/home");
+    }
+
     static WebElement closeIcon() {
         return driver.findElement(By.xpath("//core-icon[contains(@class,'register-login-bar-close')]"));
     }

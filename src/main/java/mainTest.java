@@ -18,10 +18,11 @@ public class mainTest extends makeSettingsBrowser {
     public void mainPage() throws Exception {
         try {
             chooseAirport("London Gatwick");
-            selectDate("06-10-2017)", "31-10-2017");
+            selectDate("31-03-2018)", "10-04-2018");
             addPassengers(3, 1);
             letsGo();
         } catch (Exception e) {
+            System.out.println(e);
             saveExeption(e);
         }
     }
